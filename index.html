@@ -532,26 +532,28 @@
       return;
     }
 
+    // Send registration to Google Sheets
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzfaHTwRjk-Mmmdz7QL3FpdFXE3SoSfHN4dG_umkAFD-CLv0ijFC5GWu_1HIyNxekZTAQ/exec';
+
+    var payload = {
+      firstName: fname,
+      lastName: document.getElementById('lname').value.trim(),
+      email: email,
+      background: document.getElementById('role').value
+    };
+
     document.getElementById('confirm-email').textContent = email;
     document.getElementById('form-content').style.display = 'none';
     document.getElementById('success-msg').style.display = 'block';
 
-    // NOTE FOR ORACLE APEX INTEGRATION:
-    // Replace the lines above with your APEX AJAX callback or
-    // apex.server.process() call to persist registration data.
-    // Example:
-    // apex.server.process('REGISTER_ATTENDEE', {
-    //   x01: fname,
-    //   x02: document.getElementById('lname').value.trim(),
-    //   x03: email,
-    //   x04: document.getElementById('role').value
-    // }, {
-    //   success: function(data) {
-    //     document.getElementById('confirm-email').textContent = email;
-    //     document.getElementById('form-content').style.display = 'none';
-    //     document.getElementById('success-msg').style.display = 'block';
-    //   }
-    // });
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(err) {
+      console.error('Registration save failed:', err);
+    });
   }
 </script>
 </body>
