@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Band of Brothers Workshop — Bakari Holmes · July 13, 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      background: #f7f5f0;
+      color: #1a1a18;
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .page {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(160deg, #0f1424 0%, #1a2a4a 60%, #0d1a3a 100%);
+      padding: 48px 36px 40px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(100,160,220,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #7db8d4;
+      background: rgba(125,184,212,0.12);
+      border: 0.5px solid rgba(125,184,212,0.3);
+      padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .hero-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 32px; font-weight: 600;
+      color: #f5f2ec; line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .hero-subtitle {
+      font-size: 15px; color: rgba(245,242,236,0.72);
+      line-height: 1.65; max-width: 500px;
+      margin-bottom: 28px;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-bottom: 0;
+    }
+    .meta-pill {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; color: rgba(245,242,236,0.85);
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.14);
+      padding: 7px 14px; border-radius: 8px;
+    }
+    .meta-pill svg { width: 14px; height: 14px; opacity: 0.75; flex-shrink: 0; }
+
+    /* Host banner */
+    .host-banner {
+      margin-top: 24px;
+      border-top: 0.5px solid rgba(125,184,212,0.2);
+      padding-top: 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .host-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(125,184,212,0.12);
+      border: 0.5px solid rgba(125,184,212,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 500; color: #7db8d4;
+      flex-shrink: 0;
+    }
+    .host-label {
+      font-size: 11px; color: rgba(245,242,236,0.45);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .host-name { font-size: 14px; font-weight: 500; color: #f5f2ec; margin-bottom: 2px; }
+    .host-desc { font-size: 12px; color: rgba(245,242,236,0.6); line-height: 1.45; }
+
+    /* ── Sections ── */
+    .section { padding: 36px 0 0; }
+
+    .section-label {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #888780; margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 22px; font-weight: 600;
+      color: #1a1a18; margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    /* ── Info card ── */
+    .info-card {
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 14px;
+      padding: 22px 24px;
+    }
+    .info-card p {
+      font-size: 14px; color: #4a4a46;
+      line-height: 1.75; margin-bottom: 12px;
+    }
+    .info-card p:last-child { margin-bottom: 0; }
+    .info-card strong { color: #1a1a18; font-weight: 500; }
+
+    /* ── Speaker card ── */
+    .speaker-card {
+      border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 14px; overflow: hidden;
+    }
+    .speaker-header {
+      background: #e8edf4;
+      padding: 20px 24px;
+      display: flex; gap: 16px; align-items: center;
+      border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    }
+    .speaker-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: #1a2a4a;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 500; color: #7db8d4;
+      flex-shrink: 0;
+      border: 0.5px solid rgba(125,184,212,0.4);
+      overflow: hidden;
+    }
+    .speaker-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .speaker-name { font-size: 17px; font-weight: 500; color: #1a1a18; margin-bottom: 3px; }
+    .speaker-role { font-size: 13px; color: #6b6b67; line-height: 1.4; }
+    .speaker-body { padding: 20px 24px; background: #fff; }
+    .speaker-body p {
+      font-size: 14px; color: #4a4a46;
+      line-height: 1.75; margin-bottom: 12px;
+    }
+    .speaker-body p:last-child { margin-bottom: 0; }
+    .speaker-body strong { color: #1a1a18; font-weight: 500; }
+    .stat-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+    .stat-pill {
+      font-size: 12px; font-weight: 500;
+      color: #0d2040; background: #c8ddef;
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* ── Agenda ── */
+    .agenda-list { display: flex; flex-direction: column; gap: 10px; }
+    .agenda-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .agenda-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #1a2a4a; color: #7db8d4;
+      font-size: 12px; font-weight: 500;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .agenda-title { font-size: 14px; font-weight: 500; color: #1a1a18; margin-bottom: 3px; }
+    .agenda-desc { font-size: 13px; color: #6b6b67; line-height: 1.5; }
+
+    /* ── Prerequisites ── */
+    .prereq-list { display: flex; flex-direction: column; gap: 8px; }
+    .prereq-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 10px; padding: 13px 15px;
+    }
+    .prereq-check {
+      width: 22px; height: 22px; border-radius: 6px;
+      background: #c8ddef;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .prereq-check svg { width: 13px; height: 13px; }
+    .prereq-text { font-size: 14px; color: #2a2a26; line-height: 1.55; }
+    .prereq-text a { color: #1a5a9a; text-decoration: none; font-weight: 500; }
+    .prereq-text a:hover { text-decoration: underline; }
+
+    /* ── Registration ── */
+    .reg-card {
+      background: #0f1424;
+      border-radius: 16px; padding: 32px;
+    }
+    .reg-intro {
+      font-size: 14px; color: rgba(245,242,236,0.65);
+      line-height: 1.6; margin-bottom: 22px;
+    }
+    .form-label {
+      display: block; font-size: 12px; font-weight: 500;
+      color: rgba(245,242,236,0.55); letter-spacing: 0.04em;
+      margin-bottom: 6px; margin-top: 16px;
+    }
+    .form-label:first-of-type { margin-top: 0; }
+    .reg-card input,
+    .reg-card select {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.16);
+      border-radius: 8px; color: #f5f2ec;
+      font-size: 14px; padding: 10px 13px;
+      outline: none; font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .reg-card input::placeholder { color: rgba(245,242,236,0.28); }
+    .reg-card input:focus,
+    .reg-card select:focus { border-color: rgba(125,184,212,0.55); }
+    .reg-card select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(245,242,236,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+    .reg-card select option { background: #1a2a4a; color: #f5f2ec; }
+    .reg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .submit-btn {
+      width: 100%; margin-top: 22px; padding: 13px;
+      background: #2d5a8f; color: #f5f2ec;
+      font-size: 15px; font-weight: 500;
+      border: none; border-radius: 9px; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.01em;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .submit-btn:hover { background: #3a70a8; }
+    .submit-btn:active { transform: scale(0.99); }
+    .reg-note {
+      font-size: 11px; color: rgba(245,242,236,0.3);
+      text-align: center; margin-top: 12px; line-height: 1.55;
+    }
+
+    /* Success state */
+    .success-msg { display: none; text-align: center; padding: 24px 0 10px; }
+    .check-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(125,184,212,0.14);
+      border: 0.5px solid rgba(125,184,212,0.35);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .success-big { font-size: 18px; font-weight: 500; color: #f5f2ec; margin-bottom: 8px; }
+    .success-sub { font-size: 14px; color: rgba(245,242,236,0.7); line-height: 1.6; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 40px;
+      padding: 20px 0 8px;
+      border-top: 0.5px solid rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 12px; color: #888780; line-height: 1.8;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .hero { padding: 36px 24px 32px; }
+      .hero-title { font-size: 26px; }
+      .reg-row { grid-template-columns: 1fr; }
+      .reg-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-tag">Technical Workshop &middot; Virtual Event</div>
+    <h1 class="hero-title">Interview Rubric Creator:<br>AI-Powered Tools for Landing Your Next Role</h1>
+    <p class="hero-subtitle">A live workshop with engineer and educator Bakari Holmes &mdash; learn how he combined deep expertise in software engineering and authentic assessment to build a tool that&rsquo;s changing how engineers prepare for interviews.</p>
+    <div class="hero-meta">
+      <div class="meta-pill">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="3" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M1 7h14" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M5 1v4M11 1v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Monday, July 13, 2026
+      </div>
+      <div class="meta-pill">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M8 4.5V8.5l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        11:00 AM &ndash; 12:00 PM PST
+      </div>
+      <div class="meta-pill">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="8" cy="8.5" r="1.2" fill="currentColor" opacity="0.6"/>
+        </svg>
+        Live via Zoom
+      </div>
+    </div>
+
+    <!-- Host credit -->
+    <div class="host-banner">
+      <div class="host-avatar">JF</div>
+      <div>
+        <div class="host-label">Hosted by</div>
+        <div class="host-name">Jeff Frix</div>
+        <div class="host-desc">Moderator, Band of Brothers &mdash; a Zoom community of experienced software engineers &amp; developers in career transition</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <p class="section-label">About This Workshop</p>
+    <h2 class="section-title">When a Builder Solves His Own Problem</h2>
+    <div class="info-card">
+      <p>
+        This workshop is an opportunity to sit with <strong>Bakari Holmes</strong> &mdash; a software engineer, educator, and musician who has spent his career at the intersection of technology and teaching &mdash; and hear how he turned a personal frustration with inconsistent hiring practices into <strong>Interview Rubric Creator</strong>, an AI-powered tool that transforms job descriptions into structured interview rubrics.
+      </p>
+      <p>
+        <a href="https://interviewrubric.com" target="_blank" rel="noopener" style="color:#1a5a9a;font-weight:500;text-decoration:none;">InterviewRubric.com</a> is grounded in <strong>authentic assessment</strong> &mdash; the academic discipline of creating evaluations that measure actual competence using clear, observable criteria. Whether you&rsquo;re actively interviewing, preparing to return to the market, or curious about how AI can eliminate guesswork from hiring, this session is for you.
+      </p>
+      <p>
+        Bakari didn&rsquo;t just build this for others &mdash; he built it because he needed it himself. That&rsquo;s the kind of builder story that resonates with every engineer who has ever sat on either side of a broken interview process.
+      </p>
+    </div>
+  </div>
+
+  <!-- Speaker -->
+  <div class="section">
+    <p class="section-label">Your Guest Speaker</p>
+    <h2 class="section-title">Bakari Holmes</h2>
+    <div class="speaker-card">
+      <div class="speaker-header">
+        <div class="speaker-avatar"><img src="BakariHolmesJazzPic.png" alt="Bakari Holmes" /></div>
+        <div>
+          <div class="speaker-name">Bakari Holmes</div>
+          <div class="speaker-role">Software Engineer &nbsp;&middot;&nbsp; Educator &nbsp;&middot;&nbsp; Founder, Interview Rubric Creator</div>
+        </div>
+      </div>
+      <div class="speaker-body">
+        <p>
+          Bakari Holmes is a full-stack software engineer with dual degrees in Physics and Software Engineering and a career that spans some of the most recognizable names in tech &mdash; including <strong>23andMe</strong>, <strong>Roblox</strong>, <strong>Course Hero</strong>, and <strong>Accenture</strong>. He describes his approach as <strong>&ldquo;empathetic engineering &mdash; engineering that has at its heart the needs and wants of others.&rdquo;</strong>
+        </p>
+        <p>
+          Before entering industry, Bakari was a <strong>STEM Master Teacher</strong> in Palo Alto and a physics teacher in Salinas, CA. That background in education and graduate research in authentic assessment directly informs his product: he recognized that <strong>grading and interviewing are fundamentally the same challenge</strong> &mdash; both must answer &ldquo;can this person actually do the thing?&rdquo; and both fail when evaluation standards exist only in an evaluator&rsquo;s mind.
+        </p>
+        <p>
+          Today, Bakari continues to teach as an <strong>Adjunct Instructor at CodePath</strong> (Georgia State University), mentors aspiring engineers through <strong>App Academy</strong>, and writes the <strong>&ldquo;Tech and AI Real Talk&rdquo;</strong> newsletter on Substack. He is also a <strong>7&times; award-winning soul and jazz vocalist</strong>, arranger, and producer.
+        </p>
+        <div class="stat-row">
+          <span class="stat-pill">23andMe &middot; Roblox &middot; Accenture</span>
+          <span class="stat-pill">STEM Master Teacher</span>
+          <span class="stat-pill">CodePath Instructor</span>
+          <span class="stat-pill">7&times; Award-Winning Musician</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agenda -->
+  <div class="section">
+    <p class="section-label">Workshop Agenda</p>
+    <h2 class="section-title">What You&rsquo;ll Learn</h2>
+    <div class="agenda-list">
+      <div class="agenda-item">
+        <div class="agenda-num">1</div>
+        <div>
+          <div class="agenda-title">The problem Bakari set out to solve</div>
+          <div class="agenda-desc">Why most interview processes are broken &mdash; the gap between &ldquo;structured interviewing&rdquo; in theory and the inconsistent, gut-feeling reality that candidates and hiring teams actually experience.</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">2</div>
+        <div>
+          <div class="agenda-title">From classroom to codebase</div>
+          <div class="agenda-desc">How Bakari&rsquo;s background in education and authentic assessment research gave him a framework that most engineers would never think to apply to the hiring process.</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">3</div>
+        <div>
+          <div class="agenda-title">Live demo of Interview Rubric Creator</div>
+          <div class="agenda-desc">A hands-on walkthrough of the tool &mdash; from pasting a job description to generating a structured rubric with behavioral anchors, weighted criteria, and interview format recommendations.</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">4</div>
+        <div>
+          <div class="agenda-title">Practical tips for your next interview</div>
+          <div class="agenda-desc">Actionable strategies engineers in career transition can use immediately &mdash; whether you&rsquo;re preparing for interviews, evaluating opportunities, or building your own tools.</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">5</div>
+        <div>
+          <div class="agenda-title">Live Q&amp;A</div>
+          <div class="agenda-desc">An open conversation &mdash; bring your most thoughtful questions for Bakari.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prerequisites -->
+  <div class="section">
+    <p class="section-label">Before You Attend</p>
+    <h2 class="section-title">How to Prepare</h2>
+    <div class="prereq-list">
+      <div class="prereq-item">
+        <div class="prereq-check">
+          <svg viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3.5 3.5 5.5-6" stroke="#1a5a9a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="prereq-text">Visit <a href="https://interviewrubric.com" target="_blank" rel="noopener">InterviewRubric.com</a> and try generating a rubric from a job description you&rsquo;re interested in.</div>
+      </div>
+      <div class="prereq-item">
+        <div class="prereq-check">
+          <svg viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3.5 3.5 5.5-6" stroke="#1a5a9a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="prereq-text">Have a job description handy (yours or one you&rsquo;re targeting) so you can follow along during the live demo.</div>
+      </div>
+      <div class="prereq-item">
+        <div class="prereq-check">
+          <svg viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3.5 3.5 5.5-6" stroke="#1a5a9a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="prereq-text">Come with <strong>3 thoughtful, insightful questions</strong> prepared for Bakari &mdash; the more specific, the better.</div>
+      </div>
+      <div class="prereq-item">
+        <div class="prereq-check">
+          <svg viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3.5 3.5 5.5-6" stroke="#1a5a9a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="prereq-text">Review <a href="https://www.linkedin.com/in/bakariholmes/" target="_blank" rel="noopener">Bakari&rsquo;s LinkedIn profile</a> to familiarize yourself with his background ahead of the workshop.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration -->
+  <div class="section">
+    <p class="section-label">Registration</p>
+    <h2 class="section-title">Reserve Your Spot</h2>
+    <div class="reg-card">
+      <p class="reg-intro">Seats are limited. Fill out the form below and we&rsquo;ll send your Zoom link and a reminder before July 13.</p>
+      <div id="form-content">
+        <div class="reg-row">
+          <div>
+            <label class="form-label" for="fname">First name</label>
+            <input type="text" id="fname" name="fname" placeholder="Jane" autocomplete="given-name" />
+          </div>
+          <div>
+            <label class="form-label" for="lname">Last name</label>
+            <input type="text" id="lname" name="lname" placeholder="Smith" autocomplete="family-name" />
+          </div>
+        </div>
+        <label class="form-label" for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" />
+        <label class="form-label" for="role">Your background</label>
+        <select id="role" name="role">
+          <option value="" disabled selected>Select one&hellip;</option>
+          <option value="tech">Software / Technology Professional</option>
+          <option value="transition">Engineer in Career Transition</option>
+          <option value="hiring">Hiring Manager / Interviewer</option>
+          <option value="product">Product or Business Leader</option>
+          <option value="student">Student</option>
+          <option value="other">Other</option>
+        </select>
+        <label class="form-label" for="regcode">Registration code</label>
+        <input type="text" id="regcode" name="regcode" placeholder="Enter your workshop code" autocomplete="off" />
+        <button class="submit-btn" type="button" onclick="handleSubmit()">Register for the Workshop</button>
+        <p class="reg-note">This is a free virtual event. A Zoom link will be emailed to you before July 13, 2026.</p>
+      </div>
+      <div class="success-msg" id="success-msg">
+        <div class="check-circle">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12l5 5L19 7" stroke="#7db8d4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="success-big">You&rsquo;re registered!</p>
+        <p class="success-sub">Your Zoom link and reminder will be sent to <span id="confirm-email" style="color:#7db8d4;font-weight:500"></span>.<br>See you July 13 at 11:00 AM PST.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Hosted by <strong>Jeff Frix</strong> &nbsp;&middot;&nbsp; Moderator, Band of Brothers<br>
+    Free virtual workshop &nbsp;&middot;&nbsp; Monday, July 13, 2026 &nbsp;&middot;&nbsp; 11:00 AM &ndash; 12:00 PM PST &nbsp;&middot;&nbsp; Live via Zoom
+  </div>
+
+</div>
+
+<script>
+  function handleSubmit() {
+    var fname = document.getElementById('fname').value.trim();
+    var email = document.getElementById('email').value.trim();
+
+    var regcode = document.getElementById('regcode').value.trim();
+
+    document.getElementById('fname').style.borderColor = '';
+    document.getElementById('email').style.borderColor = '';
+    document.getElementById('regcode').style.borderColor = '';
+
+    if (!fname) {
+      document.getElementById('fname').style.borderColor = 'rgba(255,100,100,0.65)';
+      document.getElementById('fname').focus();
+      return;
+    }
+    if (!email || !email.includes('@')) {
+      document.getElementById('email').style.borderColor = 'rgba(255,100,100,0.65)';
+      document.getElementById('email').focus();
+      return;
+    }
+    if (regcode !== '11111') {
+      document.getElementById('regcode').style.borderColor = 'rgba(255,100,100,0.65)';
+      document.getElementById('regcode').focus();
+      return;
+    }
+
+    document.getElementById('confirm-email').textContent = email;
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+
+    // NOTE FOR ORACLE APEX INTEGRATION:
+    // Replace the lines above with your APEX AJAX callback or
+    // apex.server.process() call to persist registration data.
+    // Example:
+    // apex.server.process('REGISTER_ATTENDEE', {
+    //   x01: fname,
+    //   x02: document.getElementById('lname').value.trim(),
+    //   x03: email,
+    //   x04: document.getElementById('role').value
+    // }, {
+    //   success: function(data) {
+    //     document.getElementById('confirm-email').textContent = email;
+    //     document.getElementById('form-content').style.display = 'none';
+    //     document.getElementById('success-msg').style.display = 'block';
+    //   }
+    // });
+  }
+</script>
+</body>
+</html>
