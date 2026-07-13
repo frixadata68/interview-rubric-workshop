@@ -532,9 +532,6 @@
       return;
     }
 
-    // Send registration to Google Sheets
-    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-Ohmky0w62-fWpDjKWSqv1xihzuk_v3VGrCqA6vhvkF1O4Tfho9SupX8WLzvy4ehFlA/exec';
-
     var payload = {
       firstName: fname,
       lastName: document.getElementById('lname').value.trim(),
@@ -546,13 +543,30 @@
     document.getElementById('form-content').style.display = 'none';
     document.getElementById('success-msg').style.display = 'block';
 
+    // 1. Send to Google Sheets (saves data + sends confirmation email + notifies admin)
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYyQPQOOj37s4UwiTg55ItRjlZNn8MMsCYsMrcadt6YLNxwChI7o5AYrzh4U1Uk2IzGA/exec';
     fetch(SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).catch(function(err) {
-      console.error('Registration save failed:', err);
+      console.error('Google Sheets save failed:', err);
+    });
+
+    // 2. Send to Formspree (backup notification to admin)
+    var FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORMSPREE_ID_HERE';
+    fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: fname + ' ' + document.getElementById('lname').value.trim(),
+        email: email,
+        background: document.getElementById('role').value,
+        _subject: 'New Workshop Registration: ' + fname
+      })
+    }).catch(function(err) {
+      console.error('Formspree save failed:', err);
     });
   }
 </script>
