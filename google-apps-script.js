@@ -39,7 +39,7 @@ function getOrCreateSheet() {
 }
 
 function sendConfirmationEmail(firstName, email) {
-  var subject = 'You\'re Registered — Pivot Point Network Workshop: Monday, July 13';
+  var subject = 'You\'re Registered — The Pivot Point Network Workshop: Monday, July 13';
 
   var htmlBody = '<!DOCTYPE html><html><head><style>' +
     'body { font-family: Arial, Helvetica, sans-serif; background: #f7f5f0; margin: 0; padding: 20px; color: #1a1a18; }' +
@@ -75,7 +75,7 @@ function sendConfirmationEmail(firstName, email) {
     '<div class="header">' +
     '<div class="tag">Confirmed Registration</div>' +
     '<h1>Interview Rubric Creator: AI-Powered Tools for Landing Your Next Role</h1>' +
-    '<p>Pivot Point Network Virtual Workshop</p>' +
+    '<p>The Pivot Point Network Virtual Workshop</p>' +
     '</div>' +
 
     // Body
@@ -89,7 +89,7 @@ function sendConfirmationEmail(firstName, email) {
     '<div class="detail-row"><span class="detail-label">Time:</span><span class="detail-value">11:00 AM – 12:00 PM PST</span></div>' +
     '<div class="detail-row"><span class="detail-label">Where:</span><span class="detail-value">Live via Zoom</span></div>' +
     '<div class="detail-row"><span class="detail-label">Zoom:</span><span class="detail-value"><a href="' + ZOOM_LINK + '">' + ZOOM_LINK + '</a></span></div>' +
-    '<div class="detail-row"><span class="detail-label">Host:</span><span class="detail-value">Jeff Frix, Moderator — Pivot Point Network</span></div>' +
+    '<div class="detail-row"><span class="detail-label">Host:</span><span class="detail-value">Jeff Frix, Moderator — The Pivot Point Network</span></div>' +
 
     // Speaker
     '<h2>Your Guest Speaker</h2>' +
@@ -135,7 +135,7 @@ function sendConfirmationEmail(firstName, email) {
 
     // Footer
     '<div class="footer">' +
-    'Hosted by <strong>Jeff Frix</strong> · Moderator, Pivot Point Network<br>' +
+    'Hosted by <strong>Jeff Frix</strong> · Moderator, The Pivot Point Network<br>' +
     'A Zoom community of experienced software engineers & developers in career transition<br>' +
     '<a href="' + WORKSHOP_PAGE + '">View the full workshop page</a>' +
     '</div>' +

@@ -1,6 +1,6 @@
-# Pivot Point Network — Workshop Builder Guide
+# The Pivot Point Network — Workshop Builder Guide
 
-A step-by-step playbook for building the next Pivot Point Network virtual workshop landing page. Follow this guide to go from "we have a speaker" to "registrations are open" — target completion by **July 20, 2026**.
+A step-by-step playbook for building the next The Pivot Point Network virtual workshop landing page. Follow this guide to go from "we have a speaker" to "registrations are open" — target completion by **July 20, 2026**.
 
 ---
 
@@ -26,7 +26,7 @@ A step-by-step playbook for building the next Pivot Point Network virtual worksh
 Open Claude Code in your `~/Downloads` directory and provide:
 
 ```
-Create the next Pivot Point Network workshop:
+Create the next The Pivot Point Network workshop:
 - Date: [date and time]
 - Guest speaker: [name]
 - They built [product/project URL]
@@ -201,11 +201,11 @@ Each workshop gets its own **color palette** to distinguish it:
 
 1. Confirm speaker, date, and registration code
 2. Open Claude Code in `~/Downloads`
-3. Say: "Create the next Pivot Point Network workshop" and provide the details
+3. Say: "Create the next The Pivot Point Network workshop" and provide the details
 4. Save the speaker photo and tell Claude the filename
 5. Reuse the existing Google Apps Script URL or set up a new one
 6. Update the Zoom link and email content in the Google Apps Script
 7. Set up Formspree form (reuse existing or create new) and update the form ID in `index.html`
 8. Ask Claude to deploy to GitHub Pages
 9. Test registration end-to-end (landing page, Google Sheet, admin notification, registrant confirmation email, Formspree backup)
-10. Share the public URL with the Pivot Point Network community
+10. Share the public URL with the The Pivot Point Network community
