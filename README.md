@@ -13,6 +13,8 @@ A step-by-step playbook for building the next Pivot Point Network virtual worksh
 - [ ] **Speaker photo** — save a high-quality image (PNG or JPG) to your Downloads folder
 - [ ] **Registration code** — pick a 5-digit code attendees will enter to register
 - [ ] **Google account access** — for the Google Apps Script backend
+- [ ] **Zoom link** — the meeting URL for the workshop
+- [ ] **Admin email** — where registration notifications are sent (currently jfrix01@gmail.com)
 
 ---
 
@@ -52,7 +54,7 @@ The Google Apps Script from Workshop 2 is already deployed. The registration dat
 
 Current working script URL:
 ```
-https://script.google.com/macros/s/AKfycbx-Ohmky0w62-fWpDjKWSqv1xihzuk_v3VGrCqA6vhvkF1O4Tfho9SupX8WLzvy4ehFlA/exec
+https://script.google.com/macros/s/AKfycbzYyQPQOOj37s4UwiTg55ItRjlZNn8MMsCYsMrcadt6YLNxwChI7o5AYrzh4U1Uk2IzGA/exec
 ```
 
 #### Option B: Create a New Script (Separate Sheet per Workshop)
@@ -61,7 +63,7 @@ https://script.google.com/macros/s/AKfycbx-Ohmky0w62-fWpDjKWSqv1xihzuk_v3VGrCqA6
 2. Delete all code in `Code.gs` and paste the contents of `google-apps-script.js`
    - **Important:** Functions must be at the **top level** — do NOT nest them inside `function myFunction() {}`
 3. Save (Cmd+S)
-4. Verify the function dropdown shows: `doGet`, `doPost`, `getOrCreateSheet`
+4. Verify the function dropdown shows: `doGet`, `doPost`, `getOrCreateSheet`, `sendConfirmationEmail`
 5. Deploy > New deployment > Web app > Execute as: Me > Who has access: **Anyone**
 6. Authorize when prompted
 7. Copy the Web App URL and give it to Claude
@@ -75,11 +77,33 @@ https://script.google.com/macros/s/AKfycbx-Ohmky0w62-fWpDjKWSqv1xihzuk_v3VGrCqA6
 | Redirects to Google login | Access set to "Only myself" | Edit deployment > Who has access: **Anyone** (not "Anyone with Google account") |
 | Still broken after all fixes | Deployment stuck on old code | Create entirely **new deployment** (Deploy > New deployment), use the new URL |
 
-### 4. Create the Registrations Viewer
+### 4. Email Notifications
+
+The Google Apps Script automatically sends two emails on each registration:
+
+1. **To the registrant** — a styled confirmation email with:
+   - Event details (date, time, Zoom link)
+   - Speaker bio and background
+   - Agenda / what they'll learn
+   - How to prepare (action items)
+   - "Join the Zoom Meeting" button
+
+2. **To the admin (jfrix01@gmail.com)** — a notification with:
+   - Registrant's name, email, and background
+   - Link to the registrations viewer page
+
+To update these for a new workshop, edit these variables at the top of `google-apps-script.js`:
+- `ZOOM_LINK` — the Zoom meeting URL
+- `ADMIN_EMAIL` — where admin notifications are sent
+- Update the email body content (speaker name, date, agenda, etc.)
+
+**Important:** After updating the script, you must create a **New deployment** in Apps Script and update the script URL in `index.html` and `registrations.html`.
+
+### 5. Create the Registrations Viewer
 
 Ask Claude to create `registrations.html` — it will build a styled admin page that pulls from the Google Sheet and displays attendees in a table with stats.
 
-### 5. Deploy to GitHub Pages
+### 6. Deploy to GitHub Pages
 
 Tell Claude to deploy. It will:
 
@@ -102,12 +126,14 @@ gh api repos/YOUR_USERNAME/workshop-name/pages -X POST -f "build_type=legacy" -f
 
 Your site will be live at: `https://YOUR_USERNAME.github.io/workshop-name/`
 
-### 6. Test Everything
+### 7. Test Everything
 
 - [ ] Open the landing page — verify speaker photo, bio, agenda, and date are correct
 - [ ] Submit a test registration with the correct code
 - [ ] Confirm the test appears on the registrations page
 - [ ] Check your Google Sheet — the row should be there
+- [ ] Check your email (jfrix01@gmail.com) — you should receive an admin notification
+- [ ] Check the registrant's email — they should receive a styled confirmation with Zoom link
 - [ ] Try an incorrect registration code — verify it's rejected
 
 ---
@@ -161,6 +187,7 @@ Each workshop gets its own **color palette** to distinguish it:
 3. Say: "Create the next Pivot Point Network workshop" and provide the details
 4. Save the speaker photo and tell Claude the filename
 5. Reuse the existing Google Apps Script URL or set up a new one
-6. Ask Claude to deploy to GitHub Pages
-7. Test registration end-to-end
-8. Share the public URL with the Pivot Point Network community
+6. Update the Zoom link and email content in the Google Apps Script
+7. Ask Claude to deploy to GitHub Pages
+8. Test registration end-to-end (landing page, Google Sheet, admin notification, registrant confirmation email)
+9. Share the public URL with the Pivot Point Network community
