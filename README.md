@@ -15,6 +15,7 @@ A step-by-step playbook for building the next Pivot Point Network virtual worksh
 - [ ] **Google account access** — for the Google Apps Script backend
 - [ ] **Zoom link** — the meeting URL for the workshop
 - [ ] **Admin email** — where registration notifications are sent (currently jfrix01@gmail.com)
+- [ ] **Formspree account** — for backup email notifications (currently using form ID `mpqvzzlp`)
 
 ---
 
@@ -76,6 +77,7 @@ https://script.google.com/macros/s/AKfycbzYyQPQOOj37s4UwiTg55ItRjlZNn8MMsCYsMrca
 | "Script function not found: doGet" after fix | Deployed old version | Deploy > Manage deployments > pencil > Version: **New version** > Deploy |
 | Redirects to Google login | Access set to "Only myself" | Edit deployment > Who has access: **Anyone** (not "Anyone with Google account") |
 | Still broken after all fixes | Deployment stuck on old code | Create entirely **new deployment** (Deploy > New deployment), use the new URL |
+| "Failed to send email: no recipient" | Request body stripped by browser | In `index.html`, the Google Apps Script `fetch` must use `Content-Type: text/plain`, NOT `application/json` |
 
 ### 4. Email Notifications
 
@@ -99,11 +101,25 @@ To update these for a new workshop, edit these variables at the top of `google-a
 
 **Important:** After updating the script, you must create a **New deployment** in Apps Script and update the script URL in `index.html` and `registrations.html`.
 
-### 5. Create the Registrations Viewer
+### 5. Formspree Backup Notifications
+
+[Formspree](https://formspree.io) is configured as a **backup notification system**. When someone registers, the form data is also sent to Formspree, which emails you independently of Google Apps Script.
+
+Current Formspree form: `https://formspree.io/f/mpqvzzlp`
+
+To set up for a new workshop:
+1. Go to [formspree.io](https://formspree.io) and log in
+2. Create a new form (or reuse the existing one)
+3. Set the notification email to your admin email
+4. Copy the Form ID and update it in `index.html` (search for `formspree.io/f/`)
+
+**Technical note:** The `fetch` call to Google Apps Script must use `Content-Type: text/plain` (not `application/json`) because the request uses `mode: 'no-cors'`. Using `application/json` with `no-cors` causes the browser to silently strip the request body, resulting in empty data on the server side. The Formspree call uses `application/json` with `Accept: application/json` since it supports CORS.
+
+### 6. Create the Registrations Viewer
 
 Ask Claude to create `registrations.html` — it will build a styled admin page that pulls from the Google Sheet and displays attendees in a table with stats.
 
-### 6. Deploy to GitHub Pages
+### 7. Deploy to GitHub Pages
 
 Tell Claude to deploy. It will:
 
@@ -126,14 +142,15 @@ gh api repos/YOUR_USERNAME/workshop-name/pages -X POST -f "build_type=legacy" -f
 
 Your site will be live at: `https://YOUR_USERNAME.github.io/workshop-name/`
 
-### 7. Test Everything
+### 8. Test Everything
 
 - [ ] Open the landing page — verify speaker photo, bio, agenda, and date are correct
 - [ ] Submit a test registration with the correct code
 - [ ] Confirm the test appears on the registrations page
 - [ ] Check your Google Sheet — the row should be there
-- [ ] Check your email (jfrix01@gmail.com) — you should receive an admin notification
-- [ ] Check the registrant's email — they should receive a styled confirmation with Zoom link
+- [ ] Check your email (jfrix01@gmail.com) — you should receive an admin notification from Google Apps Script
+- [ ] Check the registrant's email — they should receive a styled confirmation with Zoom link, speaker bio, agenda, and prep steps
+- [ ] Check for a Formspree backup notification email
 - [ ] Try an incorrect registration code — verify it's rejected
 
 ---
@@ -188,6 +205,7 @@ Each workshop gets its own **color palette** to distinguish it:
 4. Save the speaker photo and tell Claude the filename
 5. Reuse the existing Google Apps Script URL or set up a new one
 6. Update the Zoom link and email content in the Google Apps Script
-7. Ask Claude to deploy to GitHub Pages
-8. Test registration end-to-end (landing page, Google Sheet, admin notification, registrant confirmation email)
-9. Share the public URL with the Pivot Point Network community
+7. Set up Formspree form (reuse existing or create new) and update the form ID in `index.html`
+8. Ask Claude to deploy to GitHub Pages
+9. Test registration end-to-end (landing page, Google Sheet, admin notification, registrant confirmation email, Formspree backup)
+10. Share the public URL with the Pivot Point Network community
