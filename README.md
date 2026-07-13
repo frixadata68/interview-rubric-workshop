@@ -55,7 +55,7 @@ The Google Apps Script from Workshop 2 is already deployed. The registration dat
 
 Current working script URL:
 ```
-https://script.google.com/macros/s/AKfycbzYyQPQOOj37s4UwiTg55ItRjlZNn8MMsCYsMrcadt6YLNxwChI7o5AYrzh4U1Uk2IzGA/exec
+https://script.google.com/macros/s/AKfycbyqXSZOc_4_qV8_oHQKI0UlyAUHGkz1uq612LJDCCFi3DUJOCbc_FCBmq5dA1FpLS8r/exec
 ```
 
 #### Option B: Create a New Script (Separate Sheet per Workshop)
