@@ -548,7 +548,7 @@
     fetch(SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(payload)
     }).catch(function(err) {
       console.error('Google Sheets save failed:', err);
