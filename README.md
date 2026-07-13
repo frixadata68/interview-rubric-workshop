@@ -1,6 +1,6 @@
-# Band of Brothers — Workshop Builder Guide
+# Pivot Point Network — Workshop Builder Guide
 
-A step-by-step playbook for building the next Band of Brothers virtual workshop landing page. Follow this guide to go from "we have a speaker" to "registrations are open" — target completion by **July 20, 2026**.
+A step-by-step playbook for building the next Pivot Point Network virtual workshop landing page. Follow this guide to go from "we have a speaker" to "registrations are open" — target completion by **July 20, 2026**.
 
 ---
 
@@ -23,7 +23,7 @@ A step-by-step playbook for building the next Band of Brothers virtual workshop 
 Open Claude Code in your `~/Downloads` directory and provide:
 
 ```
-Create the next Band of Brothers workshop:
+Create the next Pivot Point Network workshop:
 - Date: [date and time]
 - Guest speaker: [name]
 - They built [product/project URL]
@@ -158,9 +158,9 @@ Each workshop gets its own **color palette** to distinguish it:
 
 1. Confirm speaker, date, and registration code
 2. Open Claude Code in `~/Downloads`
-3. Say: "Create the next Band of Brothers workshop" and provide the details
+3. Say: "Create the next Pivot Point Network workshop" and provide the details
 4. Save the speaker photo and tell Claude the filename
 5. Reuse the existing Google Apps Script URL or set up a new one
 6. Ask Claude to deploy to GitHub Pages
 7. Test registration end-to-end
-8. Share the public URL with the Band of Brothers community
+8. Share the public URL with the Pivot Point Network community
